@@ -464,12 +464,15 @@
     }
 
     noButton.addEventListener("mouseenter", moveNoButton);
-    noButton.addEventListener("touchstart", moveNoButton, { passive: true });
 
-    noButton.addEventListener("click", () => {
+    noButton.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "touch") {
+        event.preventDefault();
+      }
       noClicks += 1;
-      responseText.textContent = "Are you sure?";
-      noButton.textContent = "Are you sure?";
+      const message = noClicks % 2 === 1 ? "Are you sure?" : "Thats not nice";
+      responseText.textContent = message;
+      noButton.textContent = message;
       moveNoButton();
     });
   </script>
