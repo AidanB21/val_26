@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Be My Valentine?</title>
+  <style>
+    :root {
+      --bg-1: #ffd2b8;
+      --bg-2: #ff9db2;
+      --bg-3: #ffe6b3;
+      --ink: #2a1b1a;
+      --rose: #b51b3a;
+      --rose-dark: #8d122b;
+      --cream: #fff4ee;
+      --mint: #9de7d7;
+      --shadow: rgba(34, 16, 18, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Fraunces", "Georgia", serif;
+      color: var(--ink);
+      background: radial-gradient(circle at 15% 20%, var(--bg-3), transparent 45%),
+        radial-gradient(circle at 80% 10%, var(--mint), transparent 35%),
+        linear-gradient(140deg, var(--bg-1), var(--bg-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px 80px;
+      overflow: hidden;
+    }
+
+    .floaters {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .floater {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 12px 25px rgba(181, 27, 58, 0.15);
+      transform: rotate(12deg);
+      animation: drift 18s infinite ease-in-out;
+    }
+
+    .floater:nth-child(2) {
+      width: 32px;
+      height: 32px;
+      animation-duration: 22s;
+      animation-delay: -3s;
+      background: rgba(255, 209, 231, 0.8);
+    }
+
+    .floater:nth-child(3) {
+      width: 18px;
+      height: 18px;
+      animation-duration: 15s;
+      animation-delay: -8s;
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .floater:nth-child(4) {
+      width: 40px;
+      height: 40px;
+      animation-duration: 24s;
+      animation-delay: -12s;
+      background: rgba(255, 246, 214, 0.85);
+    }
+
+    .floater:nth-child(5) {
+      width: 22px;
+      height: 22px;
+      animation-duration: 16s;
+      animation-delay: -6s;
+      background: rgba(157, 231, 215, 0.7);
+    }
+
+    @keyframes drift {
+      0% {
+        transform: translateY(0) translateX(0) rotate(8deg);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(-80px) translateX(40px) rotate(-10deg);
+        opacity: 0.45;
+      }
+      100% {
+        transform: translateY(0) translateX(0) rotate(8deg);
+        opacity: 0.8;
+      }
+    }
+
+    main {
+      width: min(820px, 95vw);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 32px;
+      box-shadow: 0 40px 80px var(--shadow);
+      padding: 48px 40px 56px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .ticket {
+      background: var(--cream);
+      border: 2px dashed rgba(181, 27, 58, 0.35);
+      border-radius: 24px;
+      padding: 32px;
+      display: grid;
+      gap: 28px;
+    }
+
+    .headline {
+      display: grid;
+      gap: 18px;
+      text-align: center;
+    }
+
+    .photo {
+      width: min(220px, 70vw);
+      margin: 0 auto;
+      aspect-ratio: 4 / 5;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 2px solid rgba(181, 27, 58, 0.25);
+      box-shadow: 0 18px 40px rgba(34, 16, 18, 0.2);
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 3.6vw, 3.6rem);
+      letter-spacing: -0.02em;
+      color: var(--rose-dark);
+    }
+
+    .tagline {
+      font-family: "Space Grotesk", "Avenir", sans-serif;
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .card {
+      display: grid;
+      gap: 18px;
+      font-family: "Space Grotesk", "Avenir", sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .card strong {
+      color: var(--rose-dark);
+    }
+
+    .details {
+      display: grid;
+      gap: 8px;
+      font-family: "Space Grotesk", "Avenir", sans-serif;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(181, 27, 58, 0.2);
+    }
+
+    .details span {
+      display: inline-flex;
+      gap: 8px;
+      align-items: baseline;
+    }
+
+    .details span b {
+      min-width: 110px;
+      color: var(--rose);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      position: relative;
+      min-height: 70px;
+    }
+
+    button {
+      font-family: "Space Grotesk", "Avenir", sans-serif;
+      font-size: 1rem;
+      padding: 14px 28px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(181, 27, 58, 0.35);
+      outline-offset: 3px;
+    }
+
+    .yes {
+      background: var(--rose);
+      color: #fff;
+      box-shadow: 0 18px 30px rgba(181, 27, 58, 0.35);
+    }
+
+    .yes:hover {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .no {
+      background: #fff;
+      color: var(--rose-dark);
+      border: 2px solid rgba(181, 27, 58, 0.35);
+    }
+
+    .no:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 18px rgba(181, 27, 58, 0.18);
+    }
+
+    .response {
+      text-align: center;
+      font-family: "Space Grotesk", "Avenir", sans-serif;
+      font-size: 1.1rem;
+      min-height: 2.2rem;
+      color: var(--rose-dark);
+    }
+
+    .mini-note {
+      text-align: center;
+      font-family: "Space Grotesk", "Avenir", sans-serif;
+      font-size: 0.95rem;
+      opacity: 0.75;
+    }
+
+
+    .heart {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      background: var(--rose);
+      transform: rotate(45deg);
+      border-radius: 12px;
+      left: -16px;
+      bottom: -16px;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      background: var(--rose);
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      left: -22px;
+      top: 0;
+    }
+
+    .heart::after {
+      top: -22px;
+      left: 0;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.9) rotate(45deg);
+      }
+      50% {
+        transform: scale(1.05) rotate(45deg);
+      }
+      100% {
+        transform: scale(0.9) rotate(45deg);
+      }
+    }
+
+    .confetti {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .confetti span {
+      position: absolute;
+      width: 10px;
+      height: 16px;
+      opacity: 0;
+      animation: pop 3s ease-out forwards;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-320px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding: 32px 22px 40px;
+      }
+
+      .ticket {
+        padding: 26px;
+      }
+
+      .details span b {
+        min-width: 90px;
+      }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Space+Grotesk:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div class="floaters" aria-hidden="true">
+    <span class="floater" style="top: 18%; left: 8%;"></span>
+    <span class="floater" style="top: 72%; left: 12%;"></span>
+    <span class="floater" style="top: 12%; left: 82%;"></span>
+    <span class="floater" style="top: 78%; left: 86%;"></span>
+    <span class="floater" style="top: 45%; left: 92%;"></span>
+  </div>
+
+  <main>
+    <span class="heart" aria-hidden="true"></span>
+
+    <section class="ticket">
+      <div class="headline">
+        <div class="photo">
+          <img src="IMG_1024.jpeg" alt="Us" />
+        </div>
+        <h1>Be my Valentine?</h1>
+      </div>
+
+      <div class="actions">
+        <button class="yes" id="yesButton">Yes</button>
+        <button class="no" id="noButton">No</button>
+      </div>
+
+      <div class="response" id="responseText"></div>
+    </section>
+  </main>
+
+  <div class="confetti" id="confetti"></div>
+
+  <script>
+    const yesButton = document.getElementById("yesButton");
+    const noButton = document.getElementById("noButton");
+    const responseText = document.getElementById("responseText");
+    const confetti = document.getElementById("confetti");
+
+    const yesReplies = [
+      "YAYYYYYYY",
+    ];
+
+    function randomFrom(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function launchConfetti() {
+      confetti.innerHTML = "";
+      const colors = ["#ff5c8a", "#ffd166", "#7bdff2", "#ff9f68", "#cdb4db"];
+      for (let i = 0; i < 120; i += 1) {
+        const piece = document.createElement("span");
+        const size = Math.random() * 10 + 6;
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.bottom = "-20px";
+        piece.style.width = `${size}px`;
+        piece.style.height = `${size * 1.6}px`;
+        piece.style.background = colors[i % colors.length];
+        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+        piece.style.animationDelay = `${Math.random() * 0.3}s`;
+        confetti.appendChild(piece);
+      }
+    }
+
+    yesButton.addEventListener("click", () => {
+      responseText.textContent = randomFrom(yesReplies);
+      launchConfetti();
+    });
+
+    let noClicks = 0;
+
+    function moveNoButton() {
+      const padding = 20;
+      const container = document.querySelector(".actions");
+      const maxX = Math.max(0, container.clientWidth - noButton.offsetWidth - padding);
+      const maxY = Math.max(0, container.clientHeight - noButton.offsetHeight - padding);
+      const x = Math.floor(padding + Math.random() * Math.max(1, maxX));
+      const y = Math.floor(Math.random() * Math.max(1, maxY));
+      noButton.style.position = "absolute";
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+      noButton.style.zIndex = "3";
+    }
+
+    noButton.addEventListener("mouseenter", moveNoButton);
+    noButton.addEventListener("touchstart", moveNoButton, { passive: true });
+
+    noButton.addEventListener("click", () => {
+      noClicks += 1;
+      responseText.textContent = "Are you sure?";
+      noButton.textContent = "Are you sure?";
+      moveNoButton();
+    });
+  </script>
+</body>
+</html>
