@@ -342,6 +342,12 @@
       .details span b {
         min-width: 90px;
       }
+
+      .actions {
+        flex-direction: column;
+        align-items: center;
+        min-height: 160px;
+      }
     }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -425,8 +431,32 @@
       const container = document.querySelector(".actions");
       const maxX = Math.max(0, container.clientWidth - noButton.offsetWidth - padding);
       const maxY = Math.max(0, container.clientHeight - noButton.offsetHeight - padding);
-      const x = Math.floor(padding + Math.random() * Math.max(1, maxX));
-      const y = Math.floor(Math.random() * Math.max(1, maxY));
+      const yesRect = yesButton.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      const safeGap = 10;
+      let x = padding;
+      let y = 0;
+
+      for (let tries = 0; tries < 20; tries += 1) {
+        const testX = Math.floor(padding + Math.random() * Math.max(1, maxX));
+        const testY = Math.floor(Math.random() * Math.max(1, maxY));
+        const testRect = {
+          left: containerRect.left + testX,
+          top: containerRect.top + testY,
+          right: containerRect.left + testX + noButton.offsetWidth,
+          bottom: containerRect.top + testY + noButton.offsetHeight,
+        };
+        const overlapsYes =
+          testRect.left < yesRect.right + safeGap &&
+          testRect.right > yesRect.left - safeGap &&
+          testRect.top < yesRect.bottom + safeGap &&
+          testRect.bottom > yesRect.top - safeGap;
+        if (!overlapsYes) {
+          x = testX;
+          y = testY;
+          break;
+        }
+      }
       noButton.style.position = "absolute";
       noButton.style.left = `${x}px`;
       noButton.style.top = `${y}px`;
